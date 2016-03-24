@@ -20,7 +20,8 @@ import htmlMinifier from 'html-minifier'
 
 
 // required for Vue 1.0 shorthand syntax
-var templateMinifyOptions = {
+var templateMinifyOptions =
+{
   customAttrSurround: [ [ /@/, new RegExp("") ], [ /:/, new RegExp("") ] ],
   collapseWhitespace: true,
   removeComments: true,
@@ -37,7 +38,8 @@ var templateMinifyOptions = {
 function convertFragmentIntoNodeMap(fragment)
 {
   var nodes = {}
-  fragment.childNodes.forEach(function(child) {
+  fragment.childNodes.forEach((child) =>
+  {
     // Ignore text (typically just white space) and comment nodes
     if (child.nodeName === "#text" || child.nodeName === "#comment") {
       return
@@ -62,9 +64,8 @@ function vueifyPlugin()
 {
   var processStyle = function(done, text, path)
   {
-    if (!text) {
+    if (!text)
       return done()
-    }
 
     console.log("Processing STYLE...")
 
@@ -162,7 +163,8 @@ function vueifyPlugin()
       return callback(null, file)
     }
 
-    if (file.isStream()) {
+    if (file.isStream())
+    {
       this.emit("error", new util.PluginError("gulp-vuesplit", "Streams are not supported"))
       return callback()
     }
@@ -181,26 +183,27 @@ function vueifyPlugin()
     var scriptNode = nodes.script
 
     series(
-      [
-        function(done) {
+    [
+      function(done)
+      {
         processStyle(done, nodes.style, filePath)
       },
-        function(done, ...files)
+      function(done, ...files)
       {
         files.forEach((file) => stream.push(file))
         processTemplate(done, nodes.template, filePath)
       },
-        function(done, ...files)
+      function(done, ...files)
       {
         files.forEach((file) => stream.push(file))
         processScript(done, nodes.script, filePath)
       },
-        function(done, ...files)
+      function(done, ...files)
       {
         files.forEach((file) => stream.push(file))
         done(null)
       }
-      ],
+    ],
     function(err, results)
     {
       if (err)
@@ -217,4 +220,3 @@ function vueifyPlugin()
 
   return through.obj(transform)
 }
-
