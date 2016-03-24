@@ -1,8 +1,8 @@
 {
-  "name": "modern-spa-boilerplate",
+  "name": "gulp-vuesplit",
   "version": "0.1.0",
   "description": "A trivial solution for splitting `.vue` files at compile time",
-  "main": "lib/vuesplit.js",
+  "main": "lib/index.js",
   "scripts": {
     "lint": "eslint --cache *.js src/*.js",
     "autofix": "eslint --cache --fix *.js src/*.js",
