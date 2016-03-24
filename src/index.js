@@ -1,3 +1,10 @@
+/*
+===============================================================================
+  Gulp Vue-Split
+  Copyright 2016 Sebastian Software GmbH <https://www.sebastian-software.de>
+===============================================================================
+*/
+
 import fs from 'fs'
 import through from 'through2'
 import parse5 from 'parse5'
