@@ -133,7 +133,7 @@ export default function vueSplitPlugin()
         path: path.replace(".vue", ".html.js")
       })
 
-      done(null, htmlObj, jsObj)
+      done(null, jsObj)
     }).
     catch(function(ex) {
       done("Error while transforming template: ", ex)
@@ -184,24 +184,14 @@ export default function vueSplitPlugin()
 
     series(
     [
-      function(done)
-      {
+      function(done) {
         processStyle(done, nodes.style, filePath)
       },
-      function(done, ...files)
-      {
-        files.forEach((file) => stream.push(file))
+      function(done) {
         processTemplate(done, nodes.template, filePath)
       },
-      function(done, ...files)
-      {
-        files.forEach((file) => stream.push(file))
+      function(done) {
         processScript(done, nodes.script, filePath)
-      },
-      function(done, ...files)
-      {
-        files.forEach((file) => stream.push(file))
-        done(null)
       }
     ],
     function(err, results)
@@ -212,8 +202,9 @@ export default function vueSplitPlugin()
       }
       else
       {
+        results.forEach((file) => stream.push(file))
         console.log("ALL DONE")
-        callback()
+        return callback()
       }
     })
   }
