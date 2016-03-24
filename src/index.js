@@ -1,14 +1,14 @@
-var fs = require('fs');
-var through = require('through2');
-var parse5 = require('parse5');
-var deindent = require('de-indent');
-var File = require('vinyl');
-var postcss = require('postcss');
-var series = require("async/series");
-var posthtml = require('posthtml');
-var posthtmlCssModules = require('posthtml-css-modules');
-var templateValidate = require('vue-template-validator');
-var htmlMinifier = require('html-minifier');
+import fs from 'fs';
+import through from 'through2';
+import parse5 from 'parse5';
+import deindent from 'de-indent';
+import File from 'vinyl';
+import postcss from 'postcss';
+import series from "async/series";
+import posthtml from 'posthtml';
+import posthtmlCssModules from 'posthtml-css-modules';
+import templateValidate from 'vue-template-validator';
+import htmlMinifier from 'html-minifier';
 
 
 // required for Vue 1.0 shorthand syntax
