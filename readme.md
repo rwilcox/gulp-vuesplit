@@ -1,4 +1,7 @@
-# Vue Split<br/>![Downloads][npm-version-img] ![Downloads][npm-downloads-img] [![Build Status][ci-img]][ci] ![Dependencies][deps-img]
+<img src="assets/vuejs.png" alt="VueJS Logo" width="200" height="200"/>
+<img src="assets/gulp.png" alt="Gulp Logo" width="91" height="200"/>
+
+# Gulp Vue Split<br/>![Downloads][npm-version-img] ![Downloads][npm-downloads-img] [![Build Status][ci-img]][ci] ![Dependencies][deps-img]
 
 [ci-img]:  https://travis-ci.org/sebastian-software/gulp-vuesplit.svg
 [ci]:      https://travis-ci.org/sebastian-software/gulp-vuesplit
@@ -7,7 +10,9 @@
 [npm-downloads-img]: https://img.shields.io/npm/dm/gulp-vuesplit.svg
 [npm-version-img]: https://img.shields.io/npm/v/gulp-vuesplit.svg
 
-A trivial solution for splitting `.vue` files at compile time for later processing using "normal" CSS and JavaScript tools.
+A trivial solution for splitting `.vue` files for [VueJS](http://vuejs.org) at compile time for later processing using "normal" CSS and JavaScript tools.
+
+Supports CSS module preprocessing for prevention of naming conflicts between components.
 
 ## Links
 
