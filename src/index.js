@@ -5,18 +5,18 @@
 ===============================================================================
 */
 
-import fs from 'fs'
-import through from 'through2'
-import parse5 from 'parse5'
-import deindent from 'de-indent'
-import File from 'vinyl'
-import postcss from 'postcss'
+import fs from "fs"
+import through from "through2"
+import parse5 from "parse5"
+import deindent from "de-indent"
+import File from "vinyl"
+import postcss from "postcss"
 import series from "async/series"
-import posthtml from 'posthtml'
-import postcssModules from 'postcss-modules'
-import posthtmlCssModules from 'posthtml-css-modules'
-import templateValidate from 'vue-template-validator'
-import htmlMinifier from 'html-minifier'
+import posthtml from "posthtml"
+import postcssModules from "postcss-modules"
+import posthtmlCssModules from "posthtml-css-modules"
+import templateValidate from "vue-template-validator"
+import htmlMinifier from "html-minifier"
 
 
 // required for Vue 1.0 shorthand syntax
