@@ -60,7 +60,7 @@ function cleanTemplateText(text) {
   return text.split("\n").map((line) => line.trim()).join("\n")
 }
 
-function vueifyPlugin()
+export default function vueSplitPlugin()
 {
   var processStyle = function(done, text, path)
   {

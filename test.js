@@ -3,6 +3,6 @@ import "babel-register"
 
 import plugin from "./src"
 
-test("Dummy", (t) => {
-  t.same(2, 2)
+test("Successfully loaded", (t) => {
+  t.same(typeof plugin, "function")
 })
