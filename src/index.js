@@ -13,6 +13,7 @@ import File from 'vinyl'
 import postcss from 'postcss'
 import series from "async/series"
 import posthtml from 'posthtml'
+import postcssModules from 'postcss-modules'
 import posthtmlCssModules from 'posthtml-css-modules'
 import templateValidate from 'vue-template-validator'
 import htmlMinifier from 'html-minifier'
@@ -69,7 +70,7 @@ function vueifyPlugin()
 
     var moduleMapping = null
     postcss([
-      require("postcss-modules")({
+      postcssModules({
         getJSON: function(cssFileName, json) {
           moduleMapping = json
         }
