@@ -17,7 +17,7 @@ import postcssModules from "postcss-modules"
 import templateValidate from "vue-template-validator"
 import htmlMinifier from "html-minifier"
 import path from 'path';
-import _get from 'lodash/get';
+import objectGet from 'lodash/get';
 import parseAttrs from 'posthtml-attrs-parser';
 
 
@@ -42,12 +42,12 @@ function posthtmlCssModules(moduleMapping)
 
 function getCssClassName(moduleMapping, cssModuleName)
 {
-  var cssClassName = _get(moduleMapping, cssModuleName);
-  if (!cssClassName) {
+  var cssClassName = objectGet(moduleMapping, cssModuleName);
+  if (!cssClassName)
     throw new Error('CSS module "' + cssModuleName + '" is not found');
-  } else if (typeof cssClassName !== 'string') {
+
+  if (typeof cssClassName !== 'string')
     throw new Error('CSS module "' + cssModuleName + '" is not a string');
-  }
 
   return cssClassName;
 }
