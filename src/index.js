@@ -23,11 +23,13 @@ import parseAttrs from 'posthtml-attrs-parser';
 
 function posthtmlCssModules(moduleMapping)
 {
-  return function(tree) {
-    tree.match({attrs: {'css-module': /\w+/}}, node => {
-      const attrs = parseAttrs(node.attrs);
-      const cssModuleName = attrs['css-module'];
-      delete attrs['css-module'];
+  return function(tree)
+  {
+    tree.match({attrs: {'css-module': /\w+/}}, node =>
+    {
+      var attrs = parseAttrs(node.attrs);
+      var cssModuleName = attrs["css-module"];
+      delete attrs["css-module"];
 
       attrs.class = attrs.class || [];
       attrs.class.push(getCssClassName(moduleMapping, cssModuleName));
@@ -40,7 +42,7 @@ function posthtmlCssModules(moduleMapping)
 
 function getCssClassName(moduleMapping, cssModuleName)
 {
-  const cssClassName = _get(moduleMapping, cssModuleName);
+  var cssClassName = _get(moduleMapping, cssModuleName);
   if (!cssClassName) {
     throw new Error('CSS module "' + cssModuleName + '" is not found');
   } else if (typeof cssClassName !== 'string') {
