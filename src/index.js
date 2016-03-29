@@ -101,8 +101,6 @@ export default function vueSplitPlugin()
     if (!text)
       return done()
 
-    console.log("Processing STYLE...")
-
     postcss([
       postcssModules({
         getJSON: function(cssFileName, json) {
@@ -137,7 +135,6 @@ export default function vueSplitPlugin()
       console.warn(msg)
     })
 
-    console.log("Processing TEMPLATE...")
     posthtml([
       posthtmlCssModules(moduleMapping)
     ]).
@@ -168,8 +165,6 @@ export default function vueSplitPlugin()
       return done()
     }
 
-    console.log("Processing SCRIPT...")
-
     var fileObj = new File({
       contents: new Buffer(text),
       path: path.replace(".vue", ".js")
@@ -181,13 +176,15 @@ export default function vueSplitPlugin()
 
   var transform = function(file, encoding, callback)
   {
+    var main = this;
+
     if (file.isNull()) {
       return callback(null, file)
     }
 
     if (file.isStream())
     {
-      this.emit("error", new util.PluginError("gulp-vuesplit", "Streams are not supported"))
+      main.emit("error", new util.PluginError("gulp-vuesplit", "Streams are not supported"))
       return callback()
     }
 
@@ -220,12 +217,11 @@ export default function vueSplitPlugin()
     {
       if (err)
       {
-        console.error(err)
+        main.emit("error", new util.PluginError("gulp-vuesplit", err));
       }
       else
       {
         results.forEach((file) => stream.push(file))
-        console.log("ALL DONE")
         return callback()
       }
     })
