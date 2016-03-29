@@ -14,9 +14,41 @@ import postcss from "postcss"
 import series from "async/series"
 import posthtml from "posthtml"
 import postcssModules from "postcss-modules"
-import posthtmlCssModules from "posthtml-css-modules"
 import templateValidate from "vue-template-validator"
 import htmlMinifier from "html-minifier"
+import path from 'path';
+import _get from 'lodash/get';
+import parseAttrs from 'posthtml-attrs-parser';
+
+
+function posthtmlCssModules(moduleMapping)
+{
+  return function(tree) {
+    tree.match({attrs: {'css-module': /\w+/}}, node => {
+      const attrs = parseAttrs(node.attrs);
+      const cssModuleName = attrs['css-module'];
+      delete attrs['css-module'];
+
+      attrs.class = attrs.class || [];
+      attrs.class.push(getCssClassName(moduleMapping, cssModuleName));
+      node.attrs = attrs.compose();
+
+      return node;
+    });
+  };
+};
+
+function getCssClassName(moduleMapping, cssModuleName)
+{
+  const cssClassName = _get(moduleMapping, cssModuleName);
+  if (!cssClassName) {
+    throw new Error('CSS module "' + cssModuleName + '" is not found');
+  } else if (typeof cssClassName !== 'string') {
+    throw new Error('CSS module "' + cssModuleName + '" is not a string');
+  }
+
+  return cssClassName;
+}
 
 
 // required for Vue 1.0 shorthand syntax
@@ -62,6 +94,8 @@ function cleanTemplateText(text) {
 
 export default function vueSplitPlugin()
 {
+  var moduleMapping = null
+
   var processStyle = function(done, text, path)
   {
     if (!text)
@@ -69,7 +103,6 @@ export default function vueSplitPlugin()
 
     console.log("Processing STYLE...")
 
-    var moduleMapping = null
     postcss([
       postcssModules({
         getJSON: function(cssFileName, json) {
@@ -83,17 +116,6 @@ export default function vueSplitPlugin()
         contents: new Buffer(result.css),
         path: path.replace(".vue", ".css")
       })
-
-      /*
-      var mappingObj = new File({
-        contents: new Buffer(JSON.stringify(moduleMapping)),
-        path: path.replace(".vue", ".css.json")
-      })
-      */
-
-      // We need to write this file directly to have it available for posthtml-css-modules
-      // Unfortunately the API there does not seem to support using a JS object instead.
-      fs.writeFileSync(path.replace(".vue", ".css.json"), JSON.stringify(moduleMapping))
 
       done(null, cssObj)
     }).
@@ -117,7 +139,7 @@ export default function vueSplitPlugin()
 
     console.log("Processing TEMPLATE...")
     posthtml([
-      posthtmlCssModules(path.replace(".vue", ".css.json"))
+      posthtmlCssModules(moduleMapping)
     ]).
     process(text).
     then((result) => {
