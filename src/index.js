@@ -119,7 +119,9 @@ export default function vueSplitPlugin()
         }
       })
     ]).
-    process(text).
+    process(text, {
+      from: path
+    }).
     then(function(result) {
       var cssObj = new File({
         contents: new Buffer(result.css),
