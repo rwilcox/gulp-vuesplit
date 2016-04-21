@@ -43,6 +43,7 @@
     "posthtml-attrs-parser": "^0.1.1",
     "posthtml-css-modules": "^0.1.0",
     "s15e-javascript": "^0.1.15",
+    "through2": "^2.0.1",
     "updtr": "^0.1.7",
     "vinyl": "^1.1.1",
     "vue-template-validator": "^1.1.5"
