@@ -4,5 +4,5 @@ import "babel-register"
 import plugin from "./src"
 
 test("Successfully loaded", (t) => {
-  t.same(typeof plugin, "function")
+  t.is(typeof plugin, "function")
 })
