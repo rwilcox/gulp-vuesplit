@@ -1,6 +1,6 @@
 {
   "name": "gulp-vuesplit",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A trivial solution for splitting `.vue` files at compile time",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
