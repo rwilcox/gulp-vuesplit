@@ -94,6 +94,14 @@ function cleanTemplateText(text) {
   return text.split("\n").map((line) => line.trim()).join("\n")
 }
 
+export function generateScopedName(name, filename, css)
+{
+  //var baseName = path.basename(filename, '.css');
+  var hashedPath = crc.crc32(filename).toString(16);
+
+  return `${name}-${hashedPath}`
+}
+
 export default function vueSplitPlugin()
 {
   var moduleMapping = null
@@ -105,11 +113,7 @@ export default function vueSplitPlugin()
 
     postcss([
       postcssModules({
-        generateScopedName: function(name, filename, css) {
-          var baseName = path.basename(filename, '.css');
-          var hashedPath = crc.crc32(filename).toString(16);
-          return `_xx_${baseName}_${hashedPath}`
-        },
+        generateScopedName: generateScopedName,
         getJSON: function(cssFileName, json) {
           moduleMapping = json
         }
