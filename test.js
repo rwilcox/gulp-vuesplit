@@ -6,3 +6,7 @@ import plugin from "./src"
 test("Successfully loaded", (t) => {
   t.is(typeof plugin, "function")
 })
+
+test("Successfully executing without data", (t) => {
+  plugin()
+})
