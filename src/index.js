@@ -16,10 +16,10 @@ import posthtml from "posthtml"
 import postcssModules from "postcss-modules"
 import templateValidate from "vue-template-validator"
 import htmlMinifier from "html-minifier"
-import path from 'path';
-import objectGet from 'lodash/get';
-import parseAttrs from 'posthtml-attrs-parser';
-
+import path from "path"
+import objectGet from "lodash/get"
+import parseAttrs from "posthtml-attrs-parser"
+import crc from "crc"
 
 function posthtmlCssModules(moduleMapping)
 {
@@ -105,6 +105,11 @@ export default function vueSplitPlugin()
 
     postcss([
       postcssModules({
+        generateScopedName: function(name, filename, css) {
+          var baseName = path.basename(filename, '.css');
+          var hashedPath = crc.crc32(filename).toString(16);
+          return `_xx_${baseName}_${hashedPath}`
+        },
         getJSON: function(cssFileName, json) {
           moduleMapping = json
         }
