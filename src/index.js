@@ -21,6 +21,12 @@ import objectGet from "lodash/get"
 import parseAttrs from "posthtml-attrs-parser"
 import crc from "crc"
 
+var memCache = {
+  style : {},
+  template : {},
+  script : {}
+};
+
 function posthtmlCssModules(moduleMapping)
 {
   return function(tree)
@@ -123,6 +129,11 @@ export default function vueSplitPlugin()
       from: path
     }).
     then(function(result) {
+      if (memCache.style[path] === result.style)
+        return done(null)
+
+      memCache.style[path] = result.style
+
       var cssObj = new File({
         contents: new Buffer(result.css),
         path: path.replace(".vue", ".css")
@@ -153,7 +164,13 @@ export default function vueSplitPlugin()
     ]).
     process(text).
     then((result) => {
+      if (memCache.template[path] === result.template)
+        return done(null)
+
+      memCache.template[path] = result.template
+
       var html = minifyTemplate ? htmlMinifier.minify(result.html, templateMinifyOptions) : cleanTemplateText(result.html)
+
       var htmlObj = new File({
         contents: new Buffer(html),
         path: path.replace(".vue", ".html")
@@ -177,6 +194,11 @@ export default function vueSplitPlugin()
     if (!text) {
       return done()
     }
+
+    if (memCache.script[path] === result.script)
+      return done(null)
+
+    memCache.script[path] = result.script
 
     var fileObj = new File({
       contents: new Buffer(text),
