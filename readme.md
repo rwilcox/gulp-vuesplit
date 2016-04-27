@@ -49,7 +49,7 @@ gulp.task("vuesplit", function() {
 This generates the extract/processed `.html`, `.css`, `.js` files to the same folder as the source `.vue` file.
 
 
-## Example Vue-File
+## Example Vue-File (Test.vue)
 
 ```vue
 <style>
@@ -100,6 +100,8 @@ This generates the extract/processed `.html`, `.css`, `.js` files to the same fo
 
 ## Result
 
+### Test.css
+
 ```css
 .message-a5ecea91{
   border: 2px solid red;
@@ -122,16 +124,7 @@ This generates the extract/processed `.html`, `.css`, `.js` files to the same fo
 }
 ```
 
-```html
-<div class="message-a5ecea91">
-  <h1 class="title-a5ecea91">{{msg}}</h1>
-  <p>Intro text</p>
-  <div class="buttonbar-a5ecea91">
-    <button class="cancel-a5ecea91">Cancel</button>
-    <button class="okay-a5ecea91">Save</button>
-  </div>
-</div>
-```
+### Test.js
 
 ```js
 import template from "./Test.html";
@@ -143,6 +136,19 @@ export default {
     }
   }
 }
+```
+
+### Test.html
+
+```html
+<div class="message-a5ecea91">
+  <h1 class="title-a5ecea91">{{msg}}</h1>
+  <p>Intro text</p>
+  <div class="buttonbar-a5ecea91">
+    <button class="cancel-a5ecea91">Cancel</button>
+    <button class="okay-a5ecea91">Save</button>
+  </div>
+</div>
 ```
 
 Please note: The HTML is been compressed (using html-minifier) into a ES6 compatible module format instead of writing a HTML file:
