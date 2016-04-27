@@ -109,8 +109,8 @@ function cleanTemplateText(text)
 
 export function generateScopedName(name, filename, css)
 {
-  // var baseName = path.basename(filename, '.css');
-  var hashedPath = crc.crc32(filename).toString(16)
+  var relPath = path.relative(process.cwd(), filename)
+  var hashedPath = crc.crc32(relPath).toString(16)
 
   return `${name}-${hashedPath}`
 }
