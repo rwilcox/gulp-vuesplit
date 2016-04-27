@@ -22,9 +22,9 @@ import parseAttrs from "posthtml-attrs-parser"
 import crc from "crc"
 
 var memCache = {
-  style : {},
-  template : {},
-  script : {}
+  css : {},
+  html : {},
+  js : {}
 };
 
 function posthtmlCssModules(moduleMapping)
@@ -129,10 +129,10 @@ export default function vueSplitPlugin()
       from: path
     }).
     then(function(result) {
-      if (memCache.style[path] === result.style)
+      if (memCache.css[path] === result.css)
         return done(null)
 
-      memCache.style[path] = result.style
+      memCache.css[path] = result.css
 
       var cssObj = new File({
         contents: new Buffer(result.css),
@@ -164,10 +164,10 @@ export default function vueSplitPlugin()
     ]).
     process(text).
     then((result) => {
-      if (memCache.template[path] === result.template)
+      if (memCache.html[path] === result.html)
         return done(null)
 
-      memCache.template[path] = result.template
+      memCache.html[path] = result.html
 
       var html = minifyTemplate ? htmlMinifier.minify(result.html, templateMinifyOptions) : cleanTemplateText(result.html)
 
@@ -195,10 +195,10 @@ export default function vueSplitPlugin()
       return done()
     }
 
-    if (memCache.script[path] === result.script)
+    if (memCache.js[path] === text)
       return done(null)
 
-    memCache.script[path] = result.script
+    memCache.js[path] = text
 
     var fileObj = new File({
       contents: new Buffer(text),
