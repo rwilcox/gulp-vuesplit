@@ -24,16 +24,16 @@ import gutil from "gulp-util"
 
 var memCache =
 {
-  css : {},
-  html : {},
-  js : {}
+  css: {},
+  html: {},
+  js: {}
 }
 
 function posthtmlCssModules(moduleMapping)
 {
   return function(tree)
   {
-    tree.match({ attrs: {"css-module": /\w+/ } }, node =>
+    tree.match({ attrs: { "css-module": /\w+/ } }, node =>
     {
       var attrs = parseAttrs(node.attrs)
       var cssModuleName = attrs["css-module"]
@@ -52,10 +52,10 @@ function getCssClassName(moduleMapping, cssModuleName)
 {
   var cssClassName = objectGet(moduleMapping, cssModuleName)
   if (!cssClassName)
-    throw new Error('CSS module "' + cssModuleName + '" is not found')
+    throw new Error(`CSS module ${cssModuleName} is not found`)
 
   if (typeof cssClassName !== "string")
-    throw new Error('CSS module "' + cssModuleName + '" is not a string')
+    throw new Error(`CSS module ${cssModuleName} is not a string`)
 
   return cssClassName
 }
@@ -69,6 +69,7 @@ var templateMinifyOptions =
   removeComments: true,
   collapseBooleanAttributes: true,
   removeAttributeQuotes: true,
+
   // this is disabled by default to avoid removing
   // "type" on <input type="text">
   removeRedundantAttributes: false,
@@ -83,9 +84,8 @@ function convertFragmentIntoNodeMap(fragment)
   fragment.childNodes.forEach((child) =>
   {
     // Ignore text (typically just white space) and comment nodes
-    if (child.nodeName === "#text" || child.nodeName === "#comment") {
+    if (child.nodeName === "#text" || child.nodeName === "#comment")
       return
-    }
 
     var content = deindent(parse5.serialize(child.content || child)).trim()
     nodes[child.nodeName] = content
@@ -94,12 +94,17 @@ function convertFragmentIntoNodeMap(fragment)
   return nodes
 }
 
-function getContentFromNode(node) {
+function getContentFromNode(node)
+{
   return deindent(parse5.serialize(node.content || node))
 }
 
-function cleanTemplateText(text) {
-  return text.split("\n").map((line) => line.trim()).join("\n")
+function cleanTemplateText(text)
+{
+  return text.split("\n").map((line) =>
+  {
+    return line.trim()
+  }).join("\n")
 }
 
 export function generateScopedName(name, filename, css)
@@ -114,7 +119,7 @@ export default function vueSplitPlugin()
 {
   var moduleMapping = null
 
-  var processStyle = function(done, text, path)
+  function processStyle(done, text, path)
   {
     if (!text)
       return done()
@@ -148,7 +153,7 @@ export default function vueSplitPlugin()
 
   var minifyTemplate = true
 
-  var processTemplate = function(done, text, path)
+  function processTemplate(done, text, path)
   {
     if (!text)
       return done()
@@ -188,11 +193,11 @@ export default function vueSplitPlugin()
         path: path.replace(".vue", ".html.js")
       })
 
-      done(null, jsObj)
+      return done(null, jsObj)
     })
   }
 
-  var processScript = function(done, text, path)
+  function processScript(done, text, path)
   {
     if (!text)
       return done()
@@ -207,11 +212,11 @@ export default function vueSplitPlugin()
       path: path.replace(".vue", ".js")
     })
 
-    done(null, fileObj)
+    return done(null, fileObj)
   }
 
 
-  var transform = function(file, encoding, callback)
+  function transform(file, encoding, callback)
   {
     if (file.isNull()) {
       return callback(null, file)
@@ -228,21 +233,19 @@ export default function vueSplitPlugin()
     var nodes = convertFragmentIntoNodeMap(fragment)
     var stream = this
     var filePath = file.path
-    var moduleMapping = null
-
-    var styleNode = nodes.style
-    var htmlNode = nodes.html
-    var scriptNode = nodes.script
 
     series(
     [
-      function(done) {
+      function(done)
+      {
         processStyle(done, nodes.style, filePath)
       },
-      function(done) {
+      function(done)
+      {
         processTemplate(done, nodes.template, filePath)
       },
-      function(done) {
+      function(done)
+      {
         processScript(done, nodes.script, filePath)
       }
     ],
