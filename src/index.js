@@ -87,7 +87,7 @@ function convertFragmentIntoNodeMap(fragment)
     if (child.nodeName === "#text" || child.nodeName === "#comment")
       return
 
-    var content = deindent(parse5.serialize(child.content || child)).trim()
+    var content = getContentFromNode(child)
     nodes[child.nodeName] = content
   })
 
@@ -96,7 +96,7 @@ function convertFragmentIntoNodeMap(fragment)
 
 export function getContentFromNode(node)
 {
-  return deindent(parse5.serialize(node.content || node))
+  return deindent(parse5.serialize(node.content || node)).trim()
 }
 
 export function cleanTemplateText(text)
