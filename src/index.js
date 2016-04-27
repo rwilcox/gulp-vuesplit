@@ -33,7 +33,7 @@ function posthtmlCssModules(moduleMapping)
 {
   return function(tree)
   {
-    tree.match({ attrs: { "css-module": /\w+/ } }, node =>
+    tree.match({ attrs: { "css-module": /\w+/ } }, (node) =>
     {
       var attrs = parseAttrs(node.attrs)
       var cssModuleName = attrs["css-module"]
