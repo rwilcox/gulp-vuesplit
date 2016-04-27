@@ -143,9 +143,6 @@ export default function vueSplitPlugin()
       })
 
       done(null, cssObj)
-    }).
-    catch(function(ex) {
-      done("Error while transforming style: " + ex)
     })
   }
 
@@ -185,9 +182,6 @@ export default function vueSplitPlugin()
       })
 
       done(null, jsObj)
-    }).
-    catch(function(ex) {
-      done("Error while transforming template: ", ex)
     })
   }
 
