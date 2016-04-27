@@ -213,8 +213,6 @@ export default function vueSplitPlugin()
 
   var transform = function(file, encoding, callback)
   {
-    var main = this
-
     if (file.isNull()) {
       return callback(null, file)
     }
