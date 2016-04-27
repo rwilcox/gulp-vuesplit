@@ -34,6 +34,18 @@ npm install gulp-vuesplit --save-dev
 ```
 
 
+## Usage with Gulp
+
+```js
+import vueSplit from "gulp-vuesplit"
+
+gulp.task("vuesplit", function() {
+  return gulp.src("src/**/*.vue").
+    pipe(vueSplit()).
+    pipe(gulp.dest("."))
+})
+```
+
 
 ## Copyright
 
