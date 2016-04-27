@@ -46,7 +46,7 @@ gulp.task("vuesplit", function() {
 })
 ```
 
-This generates the extract/processed `*.html`, `*.css`, `.js` files to the same folder as the source `.vue` file.
+This generates the extract/processed `.html`, `.css`, `.js` files to the same folder as the source `.vue` file.
 
 
 ## Example Vue-File
