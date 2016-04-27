@@ -212,10 +212,8 @@ export default function vueSplitPlugin()
       return callback(null, file)
     }
 
-    if (file.isStream())
-    {
-      main.emit("error", new util.PluginError("gulp-vuesplit", "Streams are not supported"))
-      return callback()
+    if (file.isStream()) {
+      return callback(new gutil.PluginError("gulp-vuesplit", "Streams are not supported"))
     }
 
     var content = file.contents.toString("utf8")
@@ -247,7 +245,7 @@ export default function vueSplitPlugin()
     {
       if (err)
       {
-        main.emit("error", new util.PluginError("gulp-vuesplit", err));
+        callback(new gutil.PluginError("gulp-vuesplit", err))
       }
       else
       {
