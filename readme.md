@@ -1,8 +1,10 @@
 <img src="assets/vuejs.png" alt="VueJS Logo" width="200" height="200"/>
 <img src="assets/gulp.png" alt="Gulp Logo" width="91" height="200"/>
 
-# Gulp Vue Split<br/>[![Downloads][npm-version-img]][npm] [![Downloads][npm-downloads-img]][npm] [![Build Status][ci-img]][ci] [![Dependencies][deps-img]][deps]
+# Gulp Vue Split<br/>[![Sponsored by][sponsor-img]][sponsor] [![Downloads][npm-version-img]][npm] [![Downloads][npm-downloads-img]][npm] [![Build Status][ci-img]][ci] [![Dependencies][deps-img]][deps]
 
+[sponsor-img]: https://img.shields.io/badge/Sponsored%20by-Sebastian%20Software-692446.svg
+[sponsor]: https://www.sebastian-software.de
 [ci-img]:  https://travis-ci.org/sebastian-software/gulp-vuesplit.svg
 [ci]:      https://travis-ci.org/sebastian-software/gulp-vuesplit
 [deps]: https://david-dm.org/sebastian-software/gulp-vuesplit
@@ -37,4 +39,4 @@ npm install gulp-vuesplit --save-dev
 
 <img src="https://raw.githubusercontent.com/sebastian-software/s15e-javascript/master/assets/sebastiansoftware.png" alt="Sebastian Software GmbH Logo" width="250" height="200"/>
 
-Copyright 2016<br/>[Sebastian Software GmbH](http://www.sebastian-software.de)
+Copyright 2016<br/>[Sebastian Software GmbH][sponsor]
