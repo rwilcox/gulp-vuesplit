@@ -133,7 +133,7 @@ export default function vueSplitPlugin()
     then(function(result)
     {
       if (memCache.css[path] === result.css)
-        return done(null)
+        return done()
 
       memCache.css[path] = result.css
 
@@ -167,7 +167,7 @@ export default function vueSplitPlugin()
     process(text).
     then((result) => {
       if (memCache.html[path] === result.html)
-        return done(null)
+        return done()
 
       memCache.html[path] = result.html
 
@@ -197,7 +197,7 @@ export default function vueSplitPlugin()
       return done()
 
     if (memCache.js[path] === text)
-      return done(null)
+      return done()
 
     memCache.js[path] = text
 
