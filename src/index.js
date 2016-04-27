@@ -168,12 +168,19 @@ export default function vueSplitPlugin()
 
       memCache.html[path] = result.html
 
-      var html = minifyTemplate ? htmlMinifier.minify(result.html, templateMinifyOptions) : cleanTemplateText(result.html)
-
-      var htmlObj = new File({
-        contents: new Buffer(html),
-        path: path.replace(".vue", ".html")
-      })
+      try
+      {
+        var html = minifyTemplate ? htmlMinifier.minify(result.html, templateMinifyOptions) : cleanTemplateText(result.html)
+        var htmlObj = new File({
+          contents: new Buffer(html),
+          path: path.replace(".vue", ".html")
+        })
+      }
+      catch(ex)
+      {
+        console.error("Problem during template processing: " + ex)
+        return done(ex)
+      }
 
       var js = `export default ${JSON.stringify(html)}`
       var jsObj = new File({
