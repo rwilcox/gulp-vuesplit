@@ -33,31 +33,31 @@ function posthtmlCssModules(moduleMapping)
 {
   return function(tree)
   {
-    tree.match({attrs: {'css-module': /\w+/}}, node =>
+    tree.match({ attrs: {"css-module": /\w+/ } }, node =>
     {
-      var attrs = parseAttrs(node.attrs);
-      var cssModuleName = attrs["css-module"];
-      delete attrs["css-module"];
+      var attrs = parseAttrs(node.attrs)
+      var cssModuleName = attrs["css-module"]
+      delete attrs["css-module"]
 
-      attrs.class = attrs.class || [];
-      attrs.class.push(getCssClassName(moduleMapping, cssModuleName));
-      node.attrs = attrs.compose();
+      attrs.class = attrs.class || []
+      attrs.class.push(getCssClassName(moduleMapping, cssModuleName))
+      node.attrs = attrs.compose()
 
-      return node;
-    });
-  };
-};
+      return node
+    })
+  }
+}
 
 function getCssClassName(moduleMapping, cssModuleName)
 {
-  var cssClassName = objectGet(moduleMapping, cssModuleName);
+  var cssClassName = objectGet(moduleMapping, cssModuleName)
   if (!cssClassName)
-    throw new Error('CSS module "' + cssModuleName + '" is not found');
+    throw new Error('CSS module "' + cssModuleName + '" is not found')
 
-  if (typeof cssClassName !== 'string')
-    throw new Error('CSS module "' + cssModuleName + '" is not a string');
+  if (typeof cssClassName !== "string")
+    throw new Error('CSS module "' + cssModuleName + '" is not a string')
 
-  return cssClassName;
+  return cssClassName
 }
 
 
@@ -104,8 +104,8 @@ function cleanTemplateText(text) {
 
 export function generateScopedName(name, filename, css)
 {
-  //var baseName = path.basename(filename, '.css');
-  var hashedPath = crc.crc32(filename).toString(16);
+  // var baseName = path.basename(filename, '.css');
+  var hashedPath = crc.crc32(filename).toString(16)
 
   return `${name}-${hashedPath}`
 }
@@ -176,7 +176,7 @@ export default function vueSplitPlugin()
           path: path.replace(".vue", ".html")
         })
       }
-      catch(ex)
+      catch (ex)
       {
         console.error("Problem during template processing: " + ex)
         return done(ex)
@@ -213,7 +213,7 @@ export default function vueSplitPlugin()
 
   var transform = function(file, encoding, callback)
   {
-    var main = this;
+    var main = this
 
     if (file.isNull()) {
       return callback(null, file)
