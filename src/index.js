@@ -94,12 +94,12 @@ function convertFragmentIntoNodeMap(fragment)
   return nodes
 }
 
-function getContentFromNode(node)
+export function getContentFromNode(node)
 {
   return deindent(parse5.serialize(node.content || node))
 }
 
-function cleanTemplateText(text)
+export function cleanTemplateText(text)
 {
   return text.split("\n").map((line) => line.trim()).join("\n")
 }
