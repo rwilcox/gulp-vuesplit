@@ -101,10 +101,7 @@ function getContentFromNode(node)
 
 function cleanTemplateText(text)
 {
-  return text.split("\n").map((line) =>
-  {
-    return line.trim()
-  }).join("\n")
+  return text.split("\n").map((line) => line.trim()).join("\n")
 }
 
 export function generateScopedName(name, filename, css)
