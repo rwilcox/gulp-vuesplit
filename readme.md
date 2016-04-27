@@ -57,7 +57,7 @@ This generates the extract/processed `.html`, `.css`, `.js` files to the same fo
     border: 2px solid red;
   }
 
-  .title {
+  .title{
     font-size: 3em;
   }
 
@@ -96,6 +96,59 @@ This generates the extract/processed `.html`, `.css`, `.js` files to the same fo
     }
   }
 </script>
+```
+
+## Result
+
+```css
+.message-a5ecea91{
+  border: 2px solid red;
+}
+
+.title-a5ecea91{
+  font-size: 3em;
+}
+
+.buttonbar-a5ecea91{
+  width: auto;
+}
+
+.cancel-a5ecea91{
+  background: red;
+}
+
+.okay-a5ecea91{
+  background: green;
+}
+```
+
+```html
+<div class="message-a5ecea91">
+  <h1 class="title-a5ecea91">{{msg}}</h1>
+  <p>Intro text</p>
+  <div class="buttonbar-a5ecea91">
+    <button class="cancel-a5ecea91">Cancel</button>
+    <button class="okay-a5ecea91">Save</button>
+  </div>
+</div>
+```
+
+```js
+import template from "./Test.html";
+export default {
+  template: template,
+  data: function () {
+    return {
+      msg: "Hello world!"
+    }
+  }
+}
+```
+
+Please note: The HTML is been compressed (using html-minifier) into a ES6 compatible module format instead of writing a HTML file:
+
+```js
+export default "<div class=message-a5ecea91><h1 class=title-a5ecea91>{{msg}}</h1><p>Intro text<div class=buttonbar-a5ecea91><button class=cancel-a5ecea91>Cancel</button> <button class=okay-a5ecea91>Save</button></div></div>"
 ```
 
 
