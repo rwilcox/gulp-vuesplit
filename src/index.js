@@ -22,11 +22,12 @@ import parseAttrs from "posthtml-attrs-parser"
 import crc from "crc"
 import util from "gulp-util"
 
-var memCache = {
+var memCache =
+{
   css : {},
   html : {},
   js : {}
-};
+}
 
 function posthtmlCssModules(moduleMapping)
 {
@@ -129,7 +130,8 @@ export default function vueSplitPlugin()
     process(text, {
       from: path
     }).
-    then(function(result) {
+    then(function(result)
+    {
       if (memCache.css[path] === result.css)
         return done(null)
 
@@ -151,9 +153,8 @@ export default function vueSplitPlugin()
 
   var processTemplate = function(done, text, path)
   {
-    if (!text) {
+    if (!text)
       return done()
-    }
 
     var warnings = templateValidate(text)
     warnings.forEach((msg) => {
@@ -192,9 +193,8 @@ export default function vueSplitPlugin()
 
   var processScript = function(done, text, path)
   {
-    if (!text) {
+    if (!text)
       return done()
-    }
 
     if (memCache.js[path] === text)
       return done(null)
