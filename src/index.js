@@ -20,6 +20,7 @@ import path from "path"
 import objectGet from "lodash/get"
 import parseAttrs from "posthtml-attrs-parser"
 import crc from "crc"
+import util from "gulp-util"
 
 var memCache = {
   css : {},
