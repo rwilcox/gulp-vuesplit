@@ -257,7 +257,7 @@ export default function vueSplitPlugin()
       }
       else
       {
-        results.forEach((file) => file && stream.push(file))
+        results.forEach((resultFile) => resultFile && stream.push(resultFile))
         return callback()
       }
     })
