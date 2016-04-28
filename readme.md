@@ -1,7 +1,7 @@
 <img src="assets/vuejs.png" alt="VueJS Logo" width="200" height="200"/>
 <img src="assets/gulp.png" alt="Gulp Logo" width="91" height="200"/>
 
-# Gulp Vue Split<br/>[![Sponsored by][sponsor-img]][sponsor] [![Downloads][npm-version-img]][npm] [![Downloads][npm-downloads-img]][npm] [![Build Status][ci-img]][ci] [![Dependencies][deps-img]][deps]
+# Gulp Vue Split<br/>[![Sponsored by][sponsor-img]][sponsor] [![Version][npm-version-img]][npm] [![Downloads][npm-downloads-img]][npm] [![Build Status][ci-img]][ci] [![Dependencies][deps-img]][deps]
 
 [sponsor-img]: https://img.shields.io/badge/Sponsored%20by-Sebastian%20Software-692446.svg
 [sponsor]: https://www.sebastian-software.de
