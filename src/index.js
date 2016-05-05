@@ -89,7 +89,8 @@ function convertFragmentIntoNodeMap(fragment)
 
 export function getContentFromNode(node)
 {
-  return deindent(parse5.serialize(node.content || node)).trim()
+  var content = deindent(parse5.serialize(node.content || node)).trim()
+  return content ? content + "\n" : content
 }
 
 export function cleanTemplateText(text)
