@@ -125,11 +125,11 @@ export default function vueSplitPlugin()
           moduleMapping = json
         }
       })
-    ]).
-    process(text, {
+    ])
+    .process(text, {
       from: path
-    }).
-    then((result) =>
+    })
+    .then((result) =>
     {
       if (memCache.css[path] === result.css)
         return done()
@@ -155,14 +155,15 @@ export default function vueSplitPlugin()
     var warnings = templateValidate(text)
     warnings.forEach((msg) =>
     {
+      /* eslint no-console: 0 */
       console.warn(msg)
     })
 
     return posthtml([
       posthtmlCssModules(moduleMapping)
-    ]).
-    process(text).
-    then((result) =>
+    ])
+    .process(text)
+    .then((result) =>
     {
       if (memCache.html[path] === result.html)
         return done()
@@ -180,7 +181,7 @@ export default function vueSplitPlugin()
       }
       catch (exc)
       {
-        console.error("Problem during template processing: " + exc)
+        console.error(`Problem during template processing: ${exc}`)
         return done(exc)
       }
 
@@ -218,6 +219,7 @@ export default function vueSplitPlugin()
     const text = JSON.stringify({
       hash: generateHash(path)
     })
+
     const fileObj = new File({
       contents: new Buffer(text),
       path: path.replace(".vue", ".json")
@@ -229,6 +231,8 @@ export default function vueSplitPlugin()
 
   function transform(file, encoding, callback)
   {
+    /* eslint no-invalid-this: 0 */
+
     if (file.isNull())
       return callback(null, file)
 
@@ -239,6 +243,7 @@ export default function vueSplitPlugin()
     var fragment = parse5.parseFragment(content, {
       locationInfo: true
     })
+
     var nodes = convertFragmentIntoNodeMap(fragment)
     var self = this
     var filePath = file.path
