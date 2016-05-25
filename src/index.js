@@ -213,6 +213,19 @@ export default function vueSplitPlugin()
     return done(null, fileObj)
   }
 
+  function processHash(done, path)
+  {
+    const text = JSON.stringify({
+      hash: generateHash(path)
+    })
+    const fileObj = new File({
+      contents: new Buffer(text),
+      path: path.replace(".vue", ".json")
+    })
+
+    return done(null, fileObj)
+  }
+
 
   function transform(file, encoding, callback)
   {
@@ -242,6 +255,10 @@ export default function vueSplitPlugin()
       function(done)
       {
         processScript(done, nodes.script, filePath)
+      },
+      function(done)
+      {
+        processHash(done, filePath)
       }
     ],
     (err, results) =>
