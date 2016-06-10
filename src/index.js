@@ -112,7 +112,7 @@ export default function vueSplitPlugin()
 {
   var moduleMapping = null
 
-  function processStyle(done, text, path)
+  function processStyle(done, text, path, base)
   {
     if (!text)
       return done()
@@ -138,7 +138,8 @@ export default function vueSplitPlugin()
 
       var cssObj = new File({
         contents: new Buffer(result.css),
-        path: path.replace(".vue", ".css")
+        path: path.replace(".vue", ".css"),
+        base: base
       })
 
       return done(null, cssObj)
@@ -147,7 +148,7 @@ export default function vueSplitPlugin()
 
   var minifyTemplate = true
 
-  function processTemplate(done, text, path)
+  function processTemplate(done, text, path, base)
   {
     if (!text)
       return done()
@@ -189,14 +190,15 @@ export default function vueSplitPlugin()
       var jsModule = `${jsHeader}export default ${JSON.stringify(html)}`
       var jsObj = new File({
         contents: new Buffer(jsModule),
-        path: path.replace(".vue", ".html.js")
+        path: path.replace(".vue", ".html.js"),
+        base: base
       })
 
       return done(null, jsObj)
     })
   }
 
-  function processScript(done, text, path)
+  function processScript(done, text, path, base)
   {
     if (!text)
       return done()
@@ -208,13 +210,14 @@ export default function vueSplitPlugin()
 
     var fileObj = new File({
       contents: new Buffer(text),
-      path: path.replace(".vue", ".js")
+      path: path.replace(".vue", ".js"),
+      base: base
     })
 
     return done(null, fileObj)
   }
 
-  function processHash(done, path)
+  function processHash(done, path, base)
   {
     const text = JSON.stringify({
       hash: generateHash(path)
@@ -222,7 +225,8 @@ export default function vueSplitPlugin()
 
     const fileObj = new File({
       contents: new Buffer(text),
-      path: path.replace(".vue", ".json")
+      path: path.replace(".vue", ".json"),
+      base: base
     })
 
     return done(null, fileObj)
@@ -247,23 +251,24 @@ export default function vueSplitPlugin()
     var nodes = convertFragmentIntoNodeMap(fragment)
     var self = this
     var filePath = file.path
+    var fileBase = file.base
 
     return series([
       function(done)
       {
-        processStyle(done, nodes.style, filePath)
+        processStyle(done, nodes.style, filePath, fileBase)
       },
       function(done)
       {
-        processTemplate(done, nodes.template, filePath)
+        processTemplate(done, nodes.template, filePath, fileBase)
       },
       function(done)
       {
-        processScript(done, nodes.script, filePath)
+        processScript(done, nodes.script, filePath, fileBase)
       },
       function(done)
       {
-        processHash(done, filePath)
+        processHash(done, filePath, fileBase)
       }
     ],
     (err, results) =>
