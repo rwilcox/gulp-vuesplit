@@ -48,7 +48,26 @@ gulp.task("vuesplit", function() {
 
 This generates the extract/processed `.html`, `.css`, `.js` files to the same folder as the source `.vue` file.
 
+## Configuration
 
+Currently vuesplit can be configured with the following settings:
+
+  * `cssFilenameScoped` : instead of postfixing created CSS classes with a unique hash, *prefix* the name of the generated CSS with the name of the component file.
+
+
+Example:
+
+```js
+import vueSplit from "gulp-vuesplit"
+
+gulp.task("vuesplit", function() {
+  return gulp.src("src/**/*.vue").
+    pipe(vueSplit({cssFilenameScoped: true})).
+    pipe(gulp.dest("."))
+})
+
+
+```
 ## Example Vue-File (Test.vue)
 
 ```vue
