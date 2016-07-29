@@ -108,7 +108,12 @@ export function generateScopedName(name, filename)
   return `${name}-${generateHash(filename)}`
 }
 
-export default function vueSplitPlugin()
+export function generateScopedNameFilename(name, filename)
+{
+  return `${pathModule.basename(filename).split('.')[0]}-${name}`
+}
+
+export default function vueSplitPlugin(config={})
 {
   var moduleMapping = null
 
@@ -117,9 +122,15 @@ export default function vueSplitPlugin()
     if (!text)
       return done()
 
+    let scopeNameFn = generateScopedName
+
+    if ( config.cssFilenameScoped ) {
+      scopeNameFn = generateScopedNameFilename
+    }
+
     return postcss([
       postcssModules({
-        generateScopedName: generateScopedName,
+        generateScopedName: scopeNameFn,
         getJSON: function(cssFileName, json)
         {
           moduleMapping = json
